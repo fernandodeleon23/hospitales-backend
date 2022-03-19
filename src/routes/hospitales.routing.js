@@ -17,7 +17,9 @@ router.get( '/', validarJWT, getHospitales )
 
 // Crear hospital
 router.post( '/', [
-    validarCampos
+    validarCampos,
+    validarJWT,
+    check('nombre', 'El nombre es necesario')
 ]
 , crearHospital );
 

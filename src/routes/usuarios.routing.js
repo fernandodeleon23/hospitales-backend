@@ -24,7 +24,7 @@ router.post( '/', [
 ]
 , crearUsuario );
 
-// Actualziar usaurio
+// Actualizar usuario
 router.put( '/:id', [
     validarJWT,
     check('nombre', 'El nombre es obligatorio').notEmpty(),

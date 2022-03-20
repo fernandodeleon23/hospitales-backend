@@ -24,6 +24,7 @@ app.use( '/api/usuarios', require('./routes/usuarios.routing') );
 app.use( '/api/hospitales', require('./routes/hospitales.routing') );
 app.use( '/api/medicos', require('./routes/medicos.routing') );
 app.use( '/api/todo', require('./routes/busquedas.routing') );
+app.use( '/api/upload', require('./routes/uploads.routing') );
 
 app.use( '/api/login', require('./routes/auth.routing') );
 

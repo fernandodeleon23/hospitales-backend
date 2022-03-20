@@ -28,7 +28,6 @@ const getDocumentosColeccion = async ( req, res ) => {
     const regex = new RegExp( busqueda, 'i' )
 
     let data
-    console.log( tabla )
 
     switch( tabla ){
         case 'medicos':

@@ -19,6 +19,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Base de datos
 dbConnection();
 
+// Directorio publico
+app.use( express.static('src/public') )
+
 // Rutas
 app.use( '/api/usuarios', require('./routes/usuarios.routing') );
 app.use( '/api/hospitales', require('./routes/hospitales.routing') );

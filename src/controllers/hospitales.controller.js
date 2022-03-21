@@ -2,6 +2,7 @@
 const { response } = require('express')
 
 const Hospital = require('../models/hospital.model')
+const { renewToken } = require('./auth.controller')
 
 const getHospitales = async ( req, res = response ) => {
 
@@ -41,20 +42,80 @@ const crearHospital = async ( req, res = response ) => {
     }
 }
 
-const actualizarHospital = ( req, res = response ) => {
+const actualizarHospital = async( req, res = response ) => {
 
-    res.json({
-        ok: true,
-        msg: 'actualizarHospital'
-    })
+    const id = req.params.id
+    const uid = req.uid
+    
+    try{
+
+        const hospital = await Hospital.findById( id );
+
+        if( !hospital ){
+
+            res.status(404).json({
+                ok: false,
+                msg: 'Hospital no encontrado'
+            })
+        }
+
+        const cambiosHopistal = {
+            ...req.body,
+            usuario: uid
+        }
+
+        const hospitalActualizado = await Hospital.findByIdAndUpdate( id, cambiosHopistal, {new: true} );
+
+        res.json({
+            ok: true,
+            msg: 'actualizarHospital',
+            hospitalActualizado
+        })
+
+    }catch(err){
+
+        console.log(err)
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al actualizar hospital'
+        })
+    }
 }
 
-const borrarHospital = ( req, res = response ) => {
+const borrarHospital = async( req, res = response ) => {
 
-    res.json({
-        ok: true,
-        msg: 'borrarHospital'
-    })
+    const id = req.params.id
+    const uid = req.uid
+    
+    try{
+
+        const hospital = await Hospital.findById( id );
+
+        if( !hospital ){
+
+            res.status(404).json({
+                ok: false,
+                msg: 'Hospital no encontrado'
+            })
+        }
+
+        await Hospital.findByIdAndDelete( id )
+
+        res.json({
+            ok: true,
+            msg: 'hospitalEliminado'
+        })
+
+    }catch(err){
+
+        console.log(err)
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Error al actualizar hospital'
+        })
+    }
 }
 
 module.exports = {

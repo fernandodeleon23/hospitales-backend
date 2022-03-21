@@ -27,6 +27,8 @@ router.post( '/', [
 // Actualziar medico
 router.put( '/:id', [
     validarJWT,
+    check( 'nombre', 'El nombre es obligatorio' ).notEmpty(),
+    check( 'hospital', 'El hospital es obligatorio' ).isMongoId(),
     validarCampos
 ]
 , actualizarMedico )
